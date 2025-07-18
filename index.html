@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday! 🎉</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,12 +13,13 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Quicksand', sans-serif; /* Default font for body, used for paragraphs */
             background: linear-gradient(135deg, #ff6b9d, #ff8fab, #ffa8c0, #ffc2d4, #ff6b9d);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
             min-height: 100vh;
             overflow-x: hidden;
+            color: #333; /* Default text color */
         }
 
         @keyframes gradientShift {
@@ -48,6 +50,7 @@
         }
 
         .birthday-header h1 {
+            font-family: 'Pacifico', cursive; /* Applied Pacifico to header */
             font-size: 3.5rem;
             color: #fff;
             text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
@@ -285,17 +288,46 @@
             transition: all 0.3s ease;
         }
 
+        /* Refined Message Box Styles */
         .message-box {
             max-width: 900px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            padding: 3.5rem;
-            box-shadow: 0 25px 50px rgba(255, 107, 157, 0.3);
+            margin: 3rem auto;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(255, 240, 245, 0.98));
+            border-radius: 35px;
+            padding: 4rem;
+            box-shadow: 0 30px 60px rgba(255, 107, 157, 0.5), 0 0 20px rgba(255, 255, 255, 0.8);
             position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            animation: slideUp 1.5s ease-out 0.5s both;
+            overflow: hidden; /* Important for max-height transition */
+            border: 2px solid rgba(255, 107, 157, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* Space between message content elements */
+
+            /* Initial hidden state */
+            opacity: 0;
+            transform: scale(0.8);
+            max-height: 0; /* Collapse height when hidden */
+            padding-top: 0; /* Remove padding when collapsed */
+            padding-bottom: 0; /* Remove padding when collapsed */
+            margin-bottom: 0; /* Remove margin when collapsed */
+            pointer-events: none; /* Prevent interaction when hidden */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out, max-height 1.8s ease-out, padding 0.8s ease-out, margin-bottom 0.8s ease-out; /* Increased max-height transition duration */
+        }
+
+        .message-box.is-visible {
+            opacity: 1;
+            transform: scale(1);
+            max-height: 3000px; /* Sufficiently large to show content, increased for safety */
+            padding: 4rem; /* Restore padding */
+            margin-bottom: 3rem; /* Restore margin */
+            pointer-events: auto; /* Allow interaction when visible */
+        }
+
+        @keyframes popIn {
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .message-box::before {
@@ -305,8 +337,9 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 107, 157, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 107, 157, 0.15), transparent);
             animation: shine 4s infinite;
+            z-index: 1;
         }
 
         @keyframes shine {
@@ -317,15 +350,20 @@
         .message-content {
             position: relative;
             z-index: 2;
+            display: flex; /* Enable flexbox for paragraphs */
+            flex-direction: column; /* Stack paragraphs vertically */
+            gap: 1.5rem; /* Space between paragraph boxes */
         }
 
         .message-box h2 {
-            color: #ff6b9d;
-            font-size: 2.8rem;
-            margin-bottom: 2rem;
+            font-family: 'Pacifico', cursive; /* Applied Pacifico */
+            color: #e74c3c;
+            font-size: 3.2rem;
+            margin-bottom: 0; /* Gap handles spacing */
             text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
             animation: fadeInUp 1s ease-out;
+            letter-spacing: 1px;
         }
 
         @keyframes fadeInUp {
@@ -339,18 +377,145 @@
             }
         }
 
-        .message-box p {
-            color: #333;
-            font-size: 1.3rem;
-            line-height: 1.8;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 1s ease-out;
+        /* New style for individual paragraph boxes */
+        .message-paragraph-item {
+            background: rgba(255, 255, 255, 0.7); /* Slightly translucent white background */
+            border-radius: 20px; /* Rounded corners for the paragraph box */
+            padding: 1.5rem 2rem; /* Padding inside the paragraph box */
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.2), inset 0 1px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow and inner shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 107, 157, 0.2); /* Light pink border */
+            opacity: 0; /* Start hidden for staggered animation */
+            transform: translateY(20px); /* Start slightly below for fadeInUp */
+            animation: fadeInUp 1s ease-out forwards; /* Apply fadeInUp here */
         }
 
-        .message-box p:nth-child(3) { animation-delay: 0.2s; }
-        .message-box p:nth-child(4) { animation-delay: 0.4s; }
-        .message-box p:nth-child(5) { animation-delay: 0.6s; }
+        .message-paragraph-item:hover {
+            transform: translateY(-5px); /* Lift on hover */
+            box-shadow: 0 12px 25px rgba(255, 107, 157, 0.3), inset 0 1px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .message-box p {
+            font-family: 'Quicksand', sans-serif; /* Applied Quicksand */
+            color: #4a4a4a;
+            font-size: 1.4rem;
+            line-height: 1.9;
+            text-align: justify; /* Justified text */
+            margin-bottom: 0; /* Managed by .message-paragraph-item padding */
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            padding: 0; /* Remove padding here, it's on the parent box */
+        }
+
+        /* Adjust animation delays for paragraph items */
+        .message-paragraph-item:nth-child(1) { animation-delay: 0.2s; }
+        .message-paragraph-item:nth-child(2) { animation-delay: 0.4s; }
+        .message-paragraph-item:nth-child(3) { animation-delay: 0.6s; }
+
+        .message-signature {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5rem; /* Slightly larger font for more impact */
+            color: #ff6b9d; /* Changed to a vibrant pink from the gradient */
+            text-align: center;
+            padding-left: 260px;
+            font-style: bold;
+            font-weight: 700;
+            margin-top: 2.5rem; /* Increased space above the signature */
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.3); /* More pronounced shadow */
+            animation: signatureEntrance 1.5s ease-out 1s both; /* Custom animation for a grander entrance */
+            position: relative; /* For the decorative line */
+            padding-top: 1.5rem; /* Increased space for the line */
+            letter-spacing: 3px; /* More prominent letter spacing */
+            transform: scale(0.8) translateY(20px); /* Initial state for signatureEntrance */
+            opacity: 0; /* Initial state for signatureEntrance */
+        }
+
+        .message-signature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0); /* Start hidden and scale in */
+            width: 180px; /* Longer line */
+            height: 3px; /* Thicker line */
+            background: linear-gradient(90deg, transparent, #ff6b9d, #e74c3c, #ff8fab, transparent); /* More vibrant gradient line */
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Stronger shadow for the line */
+            animation: drawLine 1s ease-out 1.5s forwards; /* Animation for the line */
+        }
+
+        @keyframes signatureEntrance {
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes drawLine {
+            to {
+                transform: translateX(-50%) scaleX(1);
+            }
+        }
+
+        .message-toggle-container {
+            display: flex; /* Use flexbox to center content */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically (if needed) */
+            margin-top: 3rem; /* Space below image viewer, above button */
+            margin-bottom: 3rem; /* Space below button, before message box */
+            width: 100%; /* Ensure it takes full width to center effectively */
+        }
+
+        /* New styles for the toggle button */
+        #toggleMessageBtn {
+            background: linear-gradient(135deg, #ff6b9d, #e74c3c); /* More vibrant gradient */
+            color: white;
+            border: none;
+            padding: 1.5rem 3rem; /* Larger padding */
+            border-radius: 50px;
+            font-size: 1.3rem; /* Larger font size */
+            font-weight: 700; /* Bolder text */
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+            box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4); /* Stronger shadow */
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px; /* Add letter spacing */
+            text-transform: uppercase; /* Uppercase text */
+            outline: none; /* Remove outline on focus */
+            animation: pulseButton 2s infinite ease-in-out; /* Add a pulsating animation */
+        }
+
+        #toggleMessageBtn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent); /* Stronger shine effect */
+            transition: left 0.6s ease;
+        }
+
+        #toggleMessageBtn:hover::before {
+            left: 100%;
+        }
+
+        #toggleMessageBtn:hover {
+            transform: translateY(-5px) scale(1.02); /* More pronounced lift */
+            box-shadow: 0 15px 35px rgba(255, 107, 157, 0.6); /* Even stronger shadow on hover */
+            animation: none; /* Stop pulse on hover */
+        }
+
+        #toggleMessageBtn:active {
+            transform: translateY(-2px) scale(0.98); /* Slight press effect */
+        }
+
+        @keyframes pulseButton {
+            0% { transform: scale(1); box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 12px 30px rgba(255, 107, 157, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4); }
+        }
+
 
         .birthday-decorations {
             position: fixed;
@@ -590,24 +755,37 @@
         </div>
     </div>
 
-    <div class="message-box">
+    <div class="message-toggle-container">
+        <button id="toggleMessageBtn" class="nav-button">View Special Message</button>
+    </div>
+
+    <div class="message-box" id="messageBox">
         <div class="message-content">
             <h2>🌟 Special Birthday Message 🌟</h2>
-            <p>
-                Hi ate happy2 birthday, wala jud ko kalimot sauna ate nga katung pag pandemic atung time nga ga eskwela paka, 
-                katung muari ka sa bay tapos magdala ug pagkaon namo and then mangayug favor nako atung pa draw sa comics, 
-                salamat kaayu ate ug atu pong pag birthday nila papa ug ni ren2 naa sad ka atung time ma. Grabi kay ka ate salute kay ko nimo, 
-                daghan na kay kag giagian sa kinabuhi still ni fight gihapon ka even katung time nga nawala si lola. 
-                Na feel jud nako ang sad emotion nimo atu ilabi na kay pag July 21 gikuha si lola, maong na idol jud taka ate gusto nako ma preha sa imong kabut-an, 
-                ka manggihatagon, sa imong ka manggiluluy-on, sa imong fighting spirit, sa imong pagkakugihan ate. 
-            </p>
-            <p>
-                Katung time nga gi dengue ka, nalooy kay mi nimo atu ilabi na si mama arang kabalaka niya atu maong pag abut nako gikan school gi pug-an gyud ka niya ug udlot sa kapayas tapos giubanan nakos mama pahatud sa hospital tas atung time gitaguan pajud tu kay para dili makit-an sa doctor, 
-                after atu  gina pray ka namo always para maayu ka. Atung nanarbahu pas mama ate naa ka ate always motabang tabang namo ug tabang bantay ni ren2 pagbata niya, salamat kaayu ate namura nasad kag younger sister nako ilabi na si ate kay sukol sukolon sauna, saksi jud ka ate.
-            </p>
-            <p>
-                Atung time nga gitubag2 kang ate kim, nasakitan sad ko atu ate. Pero thankful ko nimo ate katung naa pakos Tubigon, katung gipalihok ko nimos TOR, nagpasalamat ko nimo ate kay gahatag kag ginagmay nga allowance which is dako na kay tug tabang nako. Salamat kaayu te Ellenzane, once again happy2 birthday to you i hope nga happy ka always, stay humble, pretty and always remember nga naa rami always open ra kaayu para nimo. Pag-amping ate sa imong mga lakaw always and then before ka molakaw ayaw kalimot ug pray , kay "prayer works jud". If naa kay favor ate open rako always thank you sa tabang ate, I LOVE YOU, mwa.🥹😚🥳🥲
-            </p>
+            <div class="message-paragraph-item">
+                <p>
+                    Hi ate happy2 birthday, wala jud ko kalimot sauna ate nga katung pag pandemic atung time nga ga eskwela paka, 
+                    katung muari ka sa bay tapos magdala ug pagkaon namo and then mangayug favor nako atung pa draw sa comics, 
+                    salamat kaayu ate ug atu pong pag birthday nila papa ug ni ren2 naa sad ka atung time ma. Grabi kay ka ate salute kay ko nimo, 
+                    daghan na kaykag giagian sa kinabuhi still ni fight gihapon ka even katung time nga nawala si lola. 
+                    Na feel jud nako ang sad emotion nimo atu ilabi na kay pag July 21 gikuha si lola, maong na idol jud taka ate gusto nako ma preha sa imong kabut-an, 
+                    ka manggihatagon, sa imong ka manggiluluy-on, sa imong fighting spirit, sa imong pagkakugihan ate. 
+                </p>
+            </div>
+            <div class="message-paragraph-item">
+                <p>
+                    Katung time nga gi dengue ka, nalooy kay mi nimo atu ilabi na si mama arang kabalaka niya atu maong pag abut nako gikan school gi pug-an gyud ka niya ug udlot sa kapayas tapos giubanan nakos mama pahatud sa hospital tas atung time gitaguan pajud tu kay para dili makit-an sa doctor, 
+                    after atu  gina pray ka namo always para maayu ka. Atung nanarbahu pas mama ate naa ka ate always motabang tabang namo ug tabang bantay ni ren2 pagbata niya, salamat kaayu ate namura nasad kag younger sister nako ilabi na si ate kay sukol sukolon sauna, saksi jud ka ate.
+                </p>
+            </div>
+            <div class="message-paragraph-item">
+                <p>
+                    Atung time nga gitubag2 kang ate kim, nasakitan sad ko atu ate. Pero thankful ko nimo ate katung naa pakos Tubigon, katung gipalihok ko nimos TOR, nagpasalamat ko nimo ate kay gahatag kag ginagmay nga allowance which is dako na kay tug tabang nako. Salamat kaayu te Ellenzane, once again happy2 birthday to you i hope nga happy ka always, stay humble, pretty and always remember nga naa rami always open ra kaayu para nimo. Pag-amping ate sa imong mga lakaw always and then before ka molakaw ayaw kalimot ug pray , kay "prayer works jud". If naa kay favor ate open rako always thank you sa tabang ate, I LOVE YOU, mwa.🥹😚🥳🥲
+                </p>
+            </div>
+            <div class="message-signature">
+                <p>from Anne Crystal</p>
+            </div>
         </div>
     </div>
 
@@ -616,7 +794,7 @@
         const images = [
             { src: 'res/pic-m.jpeg', alt: 'Birthday cake with candles' },
             { src: 'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=800&h=600&fit=crop', alt: 'Birthday celebration moment' },
-            { src: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800&h=600&fit=crop', alt: 'Festive birthday scene' },
+            { src: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800&h=600&fit=fit', alt: 'Festive birthday scene' },
             { src: 'res/pic1.jpg', alt: 'Birthday cake with candles' },
             { src: 'res/pic2.jpg', alt: 'Colorful birthday balloons' },
             { src: 'res/pic3.jpg', alt: 'Memorable moment' },
@@ -650,6 +828,8 @@
         const zoomOutBtn = document.getElementById('zoomOutBtn');
         const resetZoomBtn = document.getElementById('resetZoomBtn');
         const loadingSpinner = document.getElementById('loadingSpinner');
+        const messageBox = document.getElementById('messageBox'); // Get the message box element
+        const toggleMessageBtn = document.getElementById('toggleMessageBtn'); // Get the toggle button
 
         // Initialize
         function init() {
@@ -770,12 +950,24 @@
             imageDisplay.style.cursor = currentZoom > 1 ? 'grab' : 'default';
         }
 
+        // Toggle message box visibility
+        function toggleMessageBox() {
+            if (messageBox.classList.contains('is-visible')) {
+                messageBox.classList.remove('is-visible');
+                toggleMessageBtn.textContent = 'View Special Message';
+            } else {
+                messageBox.classList.add('is-visible');
+                toggleMessageBtn.textContent = 'Hide Message';
+            }
+        }
+
         // Event listeners
         prevBtn.addEventListener('click', prevImage);
         nextBtn.addEventListener('click', nextImage);
         zoomInBtn.addEventListener('click', zoomIn);
         zoomOutBtn.addEventListener('click', zoomOut);
         resetZoomBtn.addEventListener('click', resetZoom);
+        toggleMessageBtn.addEventListener('click', toggleMessageBox); // Event listener for the new button
 
         // Mouse events
         imageDisplay.addEventListener('mousedown', startDrag);
