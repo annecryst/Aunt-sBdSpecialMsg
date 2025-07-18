@@ -317,7 +317,8 @@
         .message-box.is-visible {
             opacity: 1;
             transform: scale(1);
-            max-height: 3000px; /* Sufficiently large to show content, increased for safety */
+            /* Adjusted max-height to be truly dynamic to prevent content cutoff */
+            max-height: fit-content; /* Use fit-content or a very large value */
             padding: 4rem; /* Restore padding */
             margin-bottom: 3rem; /* Restore margin */
             pointer-events: auto; /* Allow interaction when visible */
@@ -682,11 +683,11 @@
             
             .message-box {
                 margin: 2rem 1rem;
-                padding: 2.5rem;
+                padding: 1.5rem; /* Adjusted padding for mobile */
             }
             
             .message-box h2 {
-                font-size: 2.2rem;
+                font-size: 2rem; /* Slightly smaller for mobile */
             }
             
             .nav-button {
@@ -706,6 +707,41 @@
             .balloon {
                 width: 40px;
                 height: 60px;
+            }
+
+            /* Mobile specific adjustments for message content */
+            #toggleMessageBtn {
+                padding: 1rem 2rem; /* Smaller padding */
+                font-size: 1.1rem; /* Smaller font size */
+            }
+
+            .message-box.is-visible {
+                max-height: unset; /* Allow content to dictate height */
+                padding: 1.5rem; /* Ensure padding is applied when visible */
+            }
+
+            .message-box p {
+                font-size: 1.1rem; /* Adjusted for mobile readability */
+                line-height: 1.6; /* Adjusted line height for mobile readability */
+                text-align: justify; /* Justified text for better flow on mobile */
+            }
+
+            .message-paragraph-item {
+                padding: 1rem 1rem; /* Adjusted padding for mobile */
+                gap: 0.8rem; /* Reduced gap between paragraphs for mobile */
+            }
+
+            .message-signature {
+                font-size: 1.8rem; /* Smaller font size for mobile */
+                padding-left: 0; /* Ensures it's centered on mobile */
+                margin-top: 1rem; /* Adjust margin for mobile */
+                letter-spacing: 1px; /* Reduced letter spacing for mobile */
+                padding-left: 80px;
+            }
+
+            .message-signature::before {
+                width: 80px; /* Shorter line for mobile */
+                height: 2px; /* Thinner line for mobile */
             }
         }
     </style>
