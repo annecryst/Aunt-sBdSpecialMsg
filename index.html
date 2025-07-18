@@ -732,11 +732,13 @@
             }
 
             .message-signature {
-                font-size: 1.8rem; /* Smaller font size for mobile */
-                padding-left: 0; /* Ensures it's centered on mobile */
-                margin-top: 1rem; /* Adjust margin for mobile */
-                letter-spacing: 1px; /* Reduced letter spacing for mobile */
-                padding-left: 80px;
+                font-size: 1.8rem;
+                padding-left: 0;
+                margin-top: 1rem;
+                letter-spacing: 1px;
+                text-align: center;       /* Add this */
+                display: block;           /* Ensure it's block for centering */
+                width: 100%;              /* Optional: full width to align text centrally */
             }
 
             .message-signature::before {
